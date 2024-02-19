@@ -21,3 +21,4 @@ services:
       - EXTRA_PARAMS=-log -unattended
     volumes:
       - './satisfactory:/satisfactory'
+      - './config:/home/steam/.config/Epic'

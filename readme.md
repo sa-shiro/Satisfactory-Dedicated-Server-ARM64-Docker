@@ -8,15 +8,17 @@ This Docker container provides a dedicated server for running Satisfactory on AR
    Download or clone this repository to your desired folder, for example, `satisfactory-server`.
 
 2. **Set Up Permissions**:
-   Create a folder named `satisfactory` and grant full permissions to it:
+   Create a folder named `satisfactory` and `config` (your savegame and server config will be stored in there) and grant full permissions to it:
 
    - Using `chmod`:
      ```
      sudo chmod 777 satisfactory
+     sudo chmod 777 config
      ```
    - Using `chown` (replace **USER_ID:GROUP_ID** with the desired user's IDs, for example, `1000:1000`):
      ```
      sudo chown -R USER_ID:GROUP_ID satisfactory
+     sudo chown -R USER_ID:GROUP_ID config
      ```
      (On Oracle Cloud Infrastructure (OCI), by default, the user with the ID `1000:1000` is `opc`. However, since this user is primarily intended for the setup process, it is advisable to utilize the `ubuntu` user with IDs `1001:1001`)
 

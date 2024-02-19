@@ -1,1 +1,1 @@
-sudo docker exec -it satisfactory-arm64 bash
+sudo docker exec -it satisfactory-server bash
