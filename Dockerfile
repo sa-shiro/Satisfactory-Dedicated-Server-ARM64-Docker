@@ -4,22 +4,30 @@ FROM ubuntu:22.04
 # Install cURL, Python 3, sudo, unbuffer and the package for "add-apt-repository"
 RUN apt update && apt install -y curl python3 sudo expect-dev software-properties-common
 
-# Download Install FEX script to temp file
-RUN curl --silent https://raw.githubusercontent.com/FEX-Emu/FEX/main/Scripts/InstallFEX.py --output /tmp/InstallFEX.py
+# Fex build dependencies
+RUN apt install -y squashfs-tools squashfuse git python-setuptools pkgconf clang
+RUN apt install -y binfmt-support systemd cmake ninja-build software-properties-common
+RUN apt install -y libncurses6 libncurses5 libtinfo5 libtinfo6 libncurses-dev
+RUN apt install -y libsdl2-dev libepoxy-dev libssl-dev llvm lld
 
-# FEX installer has to install RootFS on the user we want to run the program
-# Run as steam user, auto answer yes for all prompts and auto extract on "FEXRootFSFetcher"
-# also makes it run with unbuffer because it's fucking shit (TLDR wants to run under zenity when we don't have a display, isatty call being stupid)
-RUN sed -i 's@\["FEXRootFSFetcher"\]@"sudo -u steam bash -c \\"unbuffer FEXRootFSFetcher -y -x\\"", shell=True@g' /tmp/InstallFEX.py
-
-# Run verification on steam user
-RUN sed -i 's@\["FEXInterpreter", "/usr/bin/uname", "-a"\]@"sudo -u steam bash -c \\"FEXInterpreter /usr/bin/uname -a\\"", shell=True@g' /tmp/InstallFEX.py
+# compiling FEX
+RUN add-apt-repository -y ppa:fex-emu/fex
+RUN git clone --recurse-submodules https://github.com/FEX-Emu/FEX.git
+WORKDIR FEX 
+RUN sed -i 's@USE_LEGACY_BINFMTMISC "Uses legacy method of setting up binfmt_misc" FALSE@USE_LEGACY_BINFMTMISC "Uses legacy method of setting up binfmt_misc" TRUE@' ./CMakeLists.txt
+RUN mkdir Build
+WORKDIR Build
+RUN CC=clang CXX=clang++ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DUSE_LINKER=lld -DENABLE_LTO=True -DBUILD_TESTS=False -DENABLE_ASSERTIONS=False -G Ninja ..
+RUN ninja
+RUN ninja install
+RUN ninja binfmt_misc
+RUN ninja binfmt_misc_64
 
 # Create user steam
 RUN useradd -m steam
 
-# Run Install FEX and remove the temp file
-RUN python3 /tmp/InstallFEX.py && rm /tmp/InstallFEX.py
+# InstallL FEX root FS
+RUN sudo -u steam bash -c "unbuffer FEXRootFSFetcher -y -x"
 
 # Change user to steam
 USER steam
