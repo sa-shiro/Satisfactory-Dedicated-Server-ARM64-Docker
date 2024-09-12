@@ -1,3 +1,5 @@
+# forked from sa-shiro/Satisfactory-Dedicated-Server-ARM64-Docker to help fix bugs
+
 # Satisfactory Dedicated Server for ARM64 (Docker Container)
 
 This Docker container provides a dedicated server for running Satisfactory on ARM64 architecture. It is based on [nitrog0d/palworld-arm64](https://github.com/nitrog0d/palworld-arm64).
