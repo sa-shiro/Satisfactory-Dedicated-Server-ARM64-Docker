@@ -4,21 +4,11 @@ services:
     image: 'satisfactory-arm64'
     container_name: 'satisfactory-server'
     ports:
-      - '27015:27015/tcp'
-      - '27036:27036/tcp'
       - '7777:7777/udp'
-      - '15000:15000/udp'
-      - '15777:15777/udp'
-      - '27015:27015/udp'
-      - '27031:27031/udp'
-      - '27032:27032/udp'
-      - '27033:27033/udp'
-      - '27034:27034/udp'
-      - '27035:27035/udp'
-      - '27036:27036/udp'
+      - '7777:7777/tcp'
     restart: 'unless-stopped'
     environment:
-      - EXTRA_PARAMS=-log -unattended
+      - EXTRA_PARAMS=-log -unattended -ini:Engine:[HTTPServer.Listeners]:DefaultBindAddress=any
     volumes:
       - './satisfactory:/satisfactory'
       - './config:/home/steam/.config/Epic'
