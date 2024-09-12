@@ -3,14 +3,14 @@
 This Docker container provides a dedicated server for running Satisfactory on ARM64 architecture. It is based on [nitrog0d/palworld-arm64](https://github.com/nitrog0d/palworld-arm64).
 
 ---
-# !!! IMPORTANT !!!
+# !!! IMPORTANT (Updated for 1.0)!!!
 
-The server might crash when trying to place down Conveyor Belts, see the following links:
+***The server will crash when trying to place down Conveyor Belts, see the following links:***
 
 - (Reddit) [[Dedicated Server] Everytime I try to put conveyor belts server crashes](https://www.reddit.com/r/SatisfactoryGame/comments/187py9k/dedicated_server_everytime_i_try_to_put_conveyor/)
 - (Satisfactory Q&A) [UPDATE 8 - UOBJECT MAX LIMIT CRASHES INCREASING - Early Access: 264901](https://questions.satisfactorygame.com/post/65613ca4d0053b102f18f4c2)
 
-You might want to try running the Server outside of a Docker Container using FEXEmu and SteamCMD as this has not been tested yet.
+Even by increasing the uobject limit wont fix this issue :(
 
 ---
 
@@ -63,12 +63,12 @@ You might want to try running the Server outside of a Docker Container using FEX
 5. **Open Necessary Ports**:
    The following ports must be opened for the server to function properly:
 
-   - TCP: `27015, 27036`
-   - UDP: `7777, 15000, 15777, 27015, 27031-27036`
+   - TCP: `7777`
+   - UDP: `7777`
      Ensure these ports are open using the Linux firewall of your choice and also within the Security List of the Oracle Cloud Infrastructure Network.
 
 6. **Default Port**:
-   The default port for the server is `15777`.
+   The default port for the server is `7777`.
 
 Now your Satisfactory Dedicated Server for ARM64 is ready!. Enjoy your gaming experience with friends.
 
