@@ -3,14 +3,10 @@
 This Docker container provides a dedicated server for running Satisfactory on ARM64 architecture. It is based on [nitrog0d/palworld-arm64](https://github.com/nitrog0d/palworld-arm64).
 
 ---
-# !!! IMPORTANT (Updated for 1.0)!!!
+# !!! IMPORTANT (Updated for 1.1)!!!
 
-***The server will crash when trying to place down Conveyor Belts, see the following links:***
-
-- (Reddit) [[Dedicated Server] Everytime I try to put conveyor belts server crashes](https://www.reddit.com/r/SatisfactoryGame/comments/187py9k/dedicated_server_everytime_i_try_to_put_conveyor/)
-- (Satisfactory Q&A) [UPDATE 8 - UOBJECT MAX LIMIT CRASHES INCREASING - Early Access: 264901](https://questions.satisfactorygame.com/post/65613ca4d0053b102f18f4c2)
-
-Even by increasing the uobject limit wont fix this issue :(
+The server now appears to be running without crashing! The previous conveyor belt–related crash no longer occurs. 
+That said, further testing is needed to fully confirm overall stability.
 
 ---
 
@@ -63,7 +59,7 @@ Even by increasing the uobject limit wont fix this issue :(
 5. **Open Necessary Ports**:
    The following ports must be opened for the server to function properly:
 
-   - TCP: `7777`
+   - TCP: `7777`, `8888`
    - UDP: `7777`
      Ensure these ports are open using the Linux firewall of your choice and also within the Security List of the Oracle Cloud Infrastructure Network.
 

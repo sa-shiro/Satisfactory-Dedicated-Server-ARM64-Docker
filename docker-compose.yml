@@ -6,6 +6,7 @@ services:
     ports:
       - '7777:7777/udp'
       - '7777:7777/tcp'
+      - '8888:8888/tcp'
     restart: 'unless-stopped'
     environment:
       - EXTRA_PARAMS=-log -unattended -ini:Engine:[HTTPServer.Listeners]:DefaultBindAddress=any

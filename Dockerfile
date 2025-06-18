@@ -9,6 +9,7 @@ RUN apt install -y squashfs-tools squashfuse git python-setuptools pkgconf clang
 RUN apt install -y binfmt-support systemd cmake ninja-build software-properties-common
 RUN apt install -y libncurses6 libncurses5 libtinfo5 libtinfo6 libncurses-dev
 RUN apt install -y libsdl2-dev libepoxy-dev libssl-dev llvm lld
+RUN apt install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5core5a libqt5gui5 libqt5widgets5 qtdeclarative5-dev qml-module-qtquick2 qml-module-qtquick-controls2 qml-module-qtquick-window2 nasm
 
 # compiling FEX
 RUN add-apt-repository -y ppa:fex-emu/fex
