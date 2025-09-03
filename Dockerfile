@@ -22,7 +22,6 @@ RUN CC=clang CXX=clang++ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Re
 RUN ninja
 RUN ninja install
 RUN ninja binfmt_misc
-RUN ninja binfmt_misc_64
 
 # Create user steam
 RUN useradd -m steam
