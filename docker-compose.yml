@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   satisfactory-server:
     image: 'satisfactory-arm64'
@@ -10,6 +9,11 @@ services:
     restart: 'unless-stopped'
     environment:
       - EXTRA_PARAMS=-log -unattended -ini:Engine:[HTTPServer.Listeners]:DefaultBindAddress=any
+      - ALWAYS_UPDATE_ON_START=true
     volumes:
       - './satisfactory:/satisfactory'
       - './config:/home/steam/.config/Epic'
+      - ./init-server.sh:/home/steam/init-server.sh:rw
+    stdin_open: true
+    tty: true
+    entrypoint: /home/steam/init-server.sh

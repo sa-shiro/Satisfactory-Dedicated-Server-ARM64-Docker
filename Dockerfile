@@ -1,5 +1,6 @@
 # Use Ubuntu 22.04 as base
 FROM ubuntu:22.04
+SHELL ["/bin/bash", "-c"]
 
 # Install cURL, Python 3, sudo, unbuffer and the package for "add-apt-repository"
 RUN apt update && apt install -y curl python3 sudo expect-dev software-properties-common
@@ -15,6 +16,10 @@ RUN apt install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5core5
 RUN add-apt-repository -y ppa:fex-emu/fex
 RUN git clone --recurse-submodules https://github.com/FEX-Emu/FEX.git
 WORKDIR FEX 
+# Reverting to an older commit due to FEXEmu updates breaking the build process
+RUN git checkout 0072b289bbf9f59b89c117158118375397532aad
+RUN git submodule update --init --recursive
+# ###
 RUN sed -i 's@USE_LEGACY_BINFMTMISC "Uses legacy method of setting up binfmt_misc" FALSE@USE_LEGACY_BINFMTMISC "Uses legacy method of setting up binfmt_misc" TRUE@' ./CMakeLists.txt
 RUN mkdir Build
 WORKDIR Build
@@ -22,7 +27,7 @@ RUN CC=clang CXX=clang++ cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Re
 RUN ninja
 RUN ninja install
 RUN ninja binfmt_misc
-RUN ninja binfmt_misc_64
+#RUN ninja binfmt_misc_64
 
 # Create user steam
 RUN useradd -m steam
@@ -39,9 +44,12 @@ WORKDIR /home/steam/Steam
 # Download and extract SteamCMD
 RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
 
-# Copy init-server.sh to container
-COPY --chmod=755 --chown=steam:steam ./init-server.sh /home/steam/init-server.sh
-RUN chmod +x /home/steam/init-server.sh
+# Copy init-server.sh to container (changed to make the runscript modifieable)
+#COPY --chmod=755 --chown=steam:steam ./init-server.sh /home/steam/init-server.sh
+#RUN chmod +x /home/steam/init-server.sh
 
-# Run it
-ENTRYPOINT /home/steam/init-server.sh
+# Default working directory
+WORKDIR /home/steam
+
+# Use bash as entrypoint so we can pass custom scripts from host
+ENTRYPOINT ["/bin/bash"]

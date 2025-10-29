@@ -1,10 +1,17 @@
 #!/bin/bash
 
 function installServer() {
-  FEXBash './steamcmd.sh +@sSteamCmdForcePlatformBitness 64 +force_install_dir "/satisfactory" +login anonymous +app_update 1690800 -beta experimental validate +quit'
+  # Add '-beta experimental' before 'validate' if you want to play on the experimental branch (check if CSS has updated the branch first!!!)
+  FEXBash './steamcmd.sh +@sSteamCmdForcePlatformBitness 64 +force_install_dir "/satisfactory" +login anonymous +app_update 1690800 validate +quit'
 }
 
 function main() {
+  # Fix for steamclient.so not being found
+  mkdir -p /home/steam/.steam/sdk64
+  ln -s /home/steam/Steam/linux64/steamclient.so /home/steam/.steam/sdk64/steamclient.so
+
+  cd /home/steam/Steam
+
   # Check if we have proper read/write permissions to /satisfactory
   if [ ! -r "/satisfactory" ] || [ ! -w "/satisfactory" ]; then
     echo 'ERROR: I do not have read/write permissions to /satisfactory! Please run "chown -R 1000:1000 satisfactory/" on host machine, then try again.'
@@ -25,10 +32,6 @@ function main() {
     echo 'Checking for updates...'
     installServer
   fi
-
-  # Fix for steamclient.so not being found
-  mkdir -p /home/steam/.steam/sdk64
-  ln -s /home/steam/Steam/linux64/steamclient.so /home/steam/.steam/sdk64/steamclient.so
 
   echo 'Starting server...'
 
