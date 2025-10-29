@@ -22,6 +22,8 @@ That said, further testing is needed to fully confirm overall stability.
      ```
      sudo chmod 777 satisfactory
      sudo chmod 777 config
+     sudo chmod 777 init-server.sh
+     sudo chmod +x init-server.sh
      ```
    - Using `chown` (replace **USER_ID:GROUP_ID** with the desired user's IDs, for example, `1000:1000`):
      ```
@@ -77,7 +79,7 @@ To alter the server port, you'll need to make adjustments in the `docker-compose
 
 Ensure that these changes are made accurately to reflect your desired server port configuration.
 
-### $EXTRA_PARAMS Options
+### $EXTRA_PARAMS Options (Note: Default values may have been changed by CSS)
 
 | Option                     | Description                                                                                                                                                                                                                                           | Example                |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
