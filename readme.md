@@ -63,12 +63,13 @@ That said, further testing is needed to fully confirm overall stability.
 
    - TCP: `7777`, `8888`
    - UDP: `7777`
-     Ensure these ports are open using the Linux firewall of your choice and also within the Security List of the Oracle Cloud Infrastructure Network.
+   
+   Ensure these ports are open using the Linux firewall of your choice and also within the Security List of the Oracle Cloud Infrastructure Network.
 
 6. **Default Port**:
    The default port for the server is `7777`.
 
-Now your Satisfactory Dedicated Server for ARM64 is ready!. Enjoy your gaming experience with friends.
+Now your Satisfactory Dedicated Server for ARM64 is ready! Enjoy your gaming experience with friends.
 
 ## Modifying Server Port Configuration
 
