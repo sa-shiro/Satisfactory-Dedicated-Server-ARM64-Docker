@@ -35,6 +35,9 @@ RUN useradd -m steam
 # InstallL FEX root FS
 RUN sudo -u steam bash -c "unbuffer FEXRootFSFetcher -y -x"
 
+# Explicitly define steam directory ownership
+RUN mkdir -p /home/steam/Steam && chown -R steam:steam /home/steam/Steam
+
 # Change user to steam
 USER steam
 
